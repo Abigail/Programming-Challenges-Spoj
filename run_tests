@@ -1,0 +1,28 @@
+#!/opt/perl/bin/perl
+
+use 5.026;
+
+use strict;
+use warnings;
+no  warnings 'syntax';
+
+use experimental 'signatures';
+
+my $program = "solution.pl";
+
+die "No $program file present" unless -f $program;
+
+my @inputs = <inp.*>;
+
+foreach my $input (@inputs) {
+    my $exp = $input =~ s/^inp/exp/r;
+    die "Did not find expected output for $input" unless -r $exp;
+
+    my $output   = `perl $program $input`;
+    my $expected = `cat  $exp`;
+
+    die "Wrong output for $input" unless $output eq $expected;
+}
+
+
+__END__
