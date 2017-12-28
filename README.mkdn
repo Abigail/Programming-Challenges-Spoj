@@ -1,0 +1,3 @@
+# Sphere Online Judge
+
+Programming challenges, http://www.spoj.com/
