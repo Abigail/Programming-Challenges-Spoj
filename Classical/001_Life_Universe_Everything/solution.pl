@@ -1,5 +1,3 @@
-#!/opt/perl/bin/perl
-
 use 5.024;
 
 use strict;
