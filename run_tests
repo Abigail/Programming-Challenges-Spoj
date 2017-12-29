@@ -8,6 +8,8 @@ no  warnings 'syntax';
 
 use experimental 'signatures';
 
+use Test::More;
+
 my $program = "solution.pl";
 
 die "No $program file present" unless -f $program;
@@ -15,14 +17,18 @@ die "No $program file present" unless -f $program;
 my @inputs = <inp.*>;
 
 foreach my $input (@inputs) {
-    my $exp = $input =~ s/^inp/exp/r;
-    die "Did not find expected output for $input" unless -r $exp;
+    SKIP: {
+        my $exp = $input =~ s/^inp/exp/r;
 
-    my $output   = `perl $program $input`;
-    my $expected = `cat  $exp`;
+        skip "No output file", 1 unless -r $exp;
 
-    die "Wrong output for $input" unless $output eq $expected;
+        my $output   = `perl $program $input`;
+        my $expected = `cat  $exp`;
+
+        is $output, $expected, "Test $input";
+    }
 }
 
+done_testing;
 
 __END__
