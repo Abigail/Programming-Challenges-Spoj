@@ -10,9 +10,9 @@ use experimental 'signatures';
 
 use Test::More;
 
-my $program = "solution.pl";
+my ($program) = grep {-f $_} "solution.pl", "solution";
 
-die "No $program file present" unless -f $program;
+die "No $program file present" unless $program;
 
 my @inputs = <inp.*>;
 
